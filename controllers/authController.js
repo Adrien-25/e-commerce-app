@@ -1,6 +1,6 @@
 import userModel from "../models/userModel.js";
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
-import Jwt from "jsonwebtoken";
+import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
     try {
@@ -80,11 +80,7 @@ export const loginController = async (req, res) => {
             })
         }
 
-        console.log(password);
-        console.log(user.password);
-
         const match = await comparePassword(password, user.password);
-        console.log(match);
 
         if (!match) {
             return res.status(200).send({
@@ -93,7 +89,7 @@ export const loginController = async (req, res) => {
             })
         }
         //token
-        const token = await Jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+        const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "7d"
         });
         res.status(200).send({
@@ -118,3 +114,7 @@ export const loginController = async (req, res) => {
     }
 };
 
+//test controller
+/*export const testController = (req, res) => {
+    res.send('Potected Route');
+}*/
