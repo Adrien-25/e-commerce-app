@@ -115,6 +115,10 @@ export const loginController = async (req, res) => {
 };
 
 //test controller
-/*export const testController = (req, res) => {
-    res.send('Potected Route');
-}*/
+export const testController = (req, res) => {
+    try {
+        res.send('Potected Route');
+    } catch (error) {
+        res.send(error);
+    }
+}
