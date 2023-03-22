@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&family=Roboto&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,61 +13,61 @@
 /*=====================================
   HEADER
 */
-.navbar{
+.navbar {
   font-family: 'Poppins', sans-serif;
   font-size: 17px;
   line-height: 26px;
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
-  --webkit-box-shadow:0 8px 6px -6px gray;
+  --webkit-box-shadow: 0 8px 6px -6px gray;
   border-bottom: 0.5px solid gray;
 }
 
-.nav-link{
-  font-weight: 300!important;
+.nav-link {
+  font-weight: 300 !important;
 }
 
-.active{
+.active {
   border-bottom: 2px solid black;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-weight: 700;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 3px;
 }
-/* =================================
-============ FOOTER ============== */
-.footer{
+
+/*=====================================
+  FOOTER
+*/
+.footer {
   color: white;
   padding: 25px;
   background: #000000;
-  background: -webkit-linear-gradient(
-    to right,
-    #8e562e,
-    #000000
-  );
-  background: linear-gradient(
-    to right,
-    #8e562e,
-    #000000
-  );
+  background: -webkit-linear-gradient(to right,
+      #8e562e,
+      #000000);
+  background: linear-gradient(to right,
+      #8e562e,
+      #000000);
 }
 
-.footer a{
+.footer a {
   text-decoration: none;
   color: white;
   padding: 10px;
   border-bottom: 2px solid transparent;
   transition: border 1s ease;
 }
-.footer a:hover{
+
+.footer a:hover {
   color: white;
   border-bottom: 2px solid #ffefba;
 }
 
-/* =================================
-======== PAGE NOT FOUND ======= */
+/*=====================================
+  PAGE NOT FOUND
+*/
 .pnf {
   display: flex;
   min-height: 65vh;
@@ -92,13 +92,15 @@
   padding: 10px;
   margin-top: 10px;
 }
+
 .pnf-btn:hover {
   background-color: black;
   color: white;
 }
 
-/* =================================
-======== CONTACT ======= */
+/*=====================================
+  CONTACT
+*/
 .contactus {
   margin: 0;
   padding: 0;
@@ -106,4 +108,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/*=====================================
+  REGISTER PAGE
+*/
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  flex-direction: column;
 }
