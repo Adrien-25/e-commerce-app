@@ -1,12 +1,11 @@
 import React from 'react'
 import { toast } from 'react-hot-toast';
 import { NavLink, Link } from 'react-router-dom';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../../context/auth';
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
     const handleLogout = () => {
-        console.log('logout');
         setAuth({
             ...auth,
             user: null,
@@ -14,7 +13,6 @@ const Header = () => {
         })
         localStorage.removeItem('auth');
         toast.success('Logout Successfully');
-        console.log(auth);
 
     }
 

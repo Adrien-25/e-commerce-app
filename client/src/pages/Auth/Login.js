@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../styles/AuthStyles.css";
 import toast from 'react-hot-toast';
-import { useAuth } from "../../context/auth";
+import { useAuth } from '../../context/auth';
 
 
 const Login = () => {

@@ -19,4 +19,5 @@ main {
 .register .register-container {
     background-color: #fbe6d9;
     padding: 50px 4vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

@@ -19,7 +19,8 @@ const AuthProvider = ({ children }) => {
                 token: parseData.token,
             })
         }
-    }, [auth]);
+        //es-lint disable
+    }, []);
     return (
         <AuthContext.Provider value={[auth, setAuth]}>
             {children}

@@ -7,6 +7,7 @@ import Pagenotfound from './pages/Pagenotfound';
 import Policy from './pages/Policy';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Auth/Login';
+import Dashboard from './pages/user/Dashboard';
 //import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
