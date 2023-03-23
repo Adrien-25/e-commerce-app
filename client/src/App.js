@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import Pagenotfound from './pages/Pagenotfound';
 import Policy from './pages/Policy';
 import 'react-toastify/dist/ReactToastify.css';
+import Login from './pages/Auth/Login';
 //import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/policy' element={<Policy />} />

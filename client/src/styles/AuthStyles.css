@@ -12,13 +12,11 @@ main {
     justify-content: center;
     height: 70vh;
     flex-direction: column;
+    max-width: 90vw;
+    margin: 0 auto;
 }
 
 .register .register-container {
     background-color: #fbe6d9;
-    padding: 50px 40px;
-}
-
-.register form {
-    max-width: 90vw;
+    padding: 50px 4vw;
 }
