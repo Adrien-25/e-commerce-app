@@ -1,0 +1,24 @@
+/*=====================================
+  REGISTER PAGE
+*/
+main {
+    background: rgb(108, 105, 164);
+    background: linear-gradient(90deg, rgba(108, 105, 164, 1) 0%, rgba(114, 114, 242, 1) 35%, rgba(0, 212, 255, 1) 100%);
+}
+
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    flex-direction: column;
+}
+
+.register .register-container {
+    background-color: #fbe6d9;
+    padding: 50px 40px;
+}
+
+.register form {
+    max-width: 90vw;
+}

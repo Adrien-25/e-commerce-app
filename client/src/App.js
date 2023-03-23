@@ -5,7 +5,8 @@ import Contact from './pages/Contact';
 import HomePage from './pages/HomePage';
 import Pagenotfound from './pages/Pagenotfound';
 import Policy from './pages/Policy';
-
+import 'react-toastify/dist/ReactToastify.css';
+//import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
