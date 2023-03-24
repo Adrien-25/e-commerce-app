@@ -17,6 +17,7 @@ router.get('/test', requireSignIn, isAdmin, testController);
 
 // PROTEXTED ROUTE AUTH
 router.get('/user-auth', requireSignIn, (req, res) => {
+    console.log("test de connexion : " + res);
     res.status(200).send({ ok: true });
 })
 
