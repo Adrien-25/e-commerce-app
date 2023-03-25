@@ -14,13 +14,21 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [answer, setAnswer] = useState("");
     const navigate = useNavigate();
 
     // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API}api/v1/auth/register`, { name, email, password, phone, address });
+            const res = await axios.post(`${process.env.REACT_APP_API}api/v1/auth/register`, {
+                name,
+                email,
+                password,
+                phone,
+                address,
+                answer
+            });
             if (res.data.success) {
                 toast.success(res.data.message);
                 navigate('/login');
@@ -69,6 +77,18 @@ const Register = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 id="InputPassword"
                                 label="Enter Your Password"
+                                variant="filled"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <TextField
+                                className="me-2 w-100"
+                                type="text"
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                id="InputAnswer"
+                                label="What is Your Favorite Sport ? "
                                 variant="filled"
                                 required
                             />

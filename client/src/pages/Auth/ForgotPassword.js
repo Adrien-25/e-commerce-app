@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../styles/AuthStyles.css";
 import toast from 'react-hot-toast';
-import { useAuth } from '../../context/auth';
 
-
-const Login = () => {
+const ForgotPassword = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [auth, setAuth] = useAuth();
+    const [newPassword, setNewPassword] = useState("");
+    const [answer, setAnswer] = useState("");
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     // form function
     const handleSubmit = async (e) => {
@@ -23,17 +20,16 @@ const Login = () => {
         try {
             //${process.env.REACT_APP_API}
             //http://localhost:8080/api/v1/auth/login
-            const res = await axios.post(`${process.env.REACT_APP_API}api/v1/auth/login`, { email, password });
+            const res = await axios.post(`${process.env.REACT_APP_API}api/v1/auth/forgot-password`, {
+                email,
+                newPassword,
+                answer
+            });
             if (res && res.data.success) {
                 toast.success(res.data.message);
-                setAuth({
-                    ...auth,
-                    user: res.data.user,
-                    token: res.data.token,
-                });
-                console.log(location.state);
-                localStorage.setItem("auth", JSON.stringify(res.data));
-                navigate(location.state || '/');
+
+
+                navigate('/login');
             } else {
                 toast.error(res.data.message);
             }
@@ -44,10 +40,10 @@ const Login = () => {
     }
 
     return (
-        <Layout title="Login - Ecommerce App">
+        <Layout title={'Forgot Password - Ecommerce App'}>
             <div className='register'>
                 <div className='register-container'>
-                    <h1 className='mb-5'>Login Form</h1>
+                    <h1 className='mb-5'>Reset Password</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4 d-flex">
                             <TextField
@@ -61,12 +57,24 @@ const Login = () => {
                                 required
                             />
                         </div>
+                        <div className="mb-4 d-flex">
+                            <TextField
+                                className="w-100"
+                                type="text"
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                id="InputSport"
+                                label="Enter Your Favorite Sport"
+                                variant="filled"
+                                required
+                            />
+                        </div>
                         <div className="mb-4">
                             <TextField
                                 className="me-2 w-100"
                                 type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
                                 id="InputPassword"
                                 label="Enter Your Password"
                                 variant="filled"
@@ -78,15 +86,8 @@ const Login = () => {
                             className='mt-4 w-100'
                             type="submit"
                             variant="contained"
-                        >LOGIN</Button>
-                        <Button
-                            className='mt-4 w-100'
-                            type="button"
-                            variant="text"
-                            onClick={() => {
-                                navigate("/forgot-password");
-                            }}
-                        >FORGOT PASSWORD ?</Button>
+                        >RESET</Button>
+
                     </form>
                 </div>
             </div>
@@ -94,4 +95,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ForgotPassword
