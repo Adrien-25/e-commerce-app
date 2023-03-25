@@ -1,5 +1,5 @@
 /*=====================================
-  REGISTER PAGE
+  REGISTER PAGE / LOGIN PAGE
 */
 main {
     background: rgb(108, 105, 164);
@@ -20,4 +20,13 @@ main {
     background-color: #fbe6d9;
     padding: 50px 4vw;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.register .MuiInputBase-adornedEnd {
+    padding: 0;
+}
+
+.register .MuiInputAdornment-filled {
+    position: absolute;
+    right: 20px;
 }

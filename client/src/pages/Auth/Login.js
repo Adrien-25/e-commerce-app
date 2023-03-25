@@ -8,6 +8,12 @@ import "../../styles/AuthStyles.css";
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -16,6 +22,10 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+
+    const [showPassword, setShowPassword] = React.useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => { event.preventDefault(); };
 
     // form function
     const handleSubmit = async (e) => {
@@ -61,16 +71,30 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <div className="mb-4">
+                        <div className="mb-4 p-0">
                             <TextField
-                                className="me-2 w-100"
-                                type="password"
+                                className="me-2 w-100 "
+                                //type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 id="InputPassword"
                                 label="Enter Your Password"
                                 variant="filled"
                                 required
+                                InputProps={{
+                                    endAdornment:
+                                        <InputAdornment className="position-absolute " position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                }}
                             />
                         </div>
 
