@@ -13,8 +13,8 @@ const Header = () => {
         })
         localStorage.removeItem('auth');
         toast.success('Logout Successfully');
-
     }
+    console.log(auth?.user?.role);
 
     return (
         <>
@@ -61,7 +61,9 @@ const Header = () => {
                                         <li>
                                             <NavLink
                                                 className="dropdown-item"
-                                                to="/dashboard"
+                                                //to="/dashboard"
+                                                to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
+
                                             >
                                                 Dashboard
                                             </NavLink>
