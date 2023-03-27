@@ -40,5 +40,4 @@ router.delete(
     DeleteCategoryController
 );
 
-
 export default router;

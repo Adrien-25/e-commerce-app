@@ -1,7 +1,7 @@
 import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
 
-// Create Category
+// Create Category 
 export const CreateCategoryController = async (req, res) => {
     try {
         const { name } = req.body;
@@ -31,7 +31,7 @@ export const CreateCategoryController = async (req, res) => {
     }
 };
 
-// Update cateogy
+// Update category
 export const UpdateCategoryController = async (req, res) => {
     try {
         const { name } = req.body;
@@ -71,7 +71,7 @@ export const CategoryController = async (req, res) => {
         res.status(500).send({
             success: false,
             error,
-            message: 'Error while getting all categories'
+            message: 'Error while Getting All Categories'
         })
     }
 }
@@ -91,7 +91,7 @@ export const SingleCategoryController = async (req, res) => {
         res.status(500).send({
             success: false,
             error,
-            message: 'Error while Getting category'
+            message: 'Error while Getting Category'
         })
     }
 }
