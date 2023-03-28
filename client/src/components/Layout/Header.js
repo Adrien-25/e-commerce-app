@@ -14,7 +14,6 @@ const Header = () => {
         localStorage.removeItem('auth');
         toast.success('Logout Successfully');
     }
-    console.log(auth?.user?.role);
 
     return (
         <>
