@@ -6,7 +6,7 @@ export const CreateCategoryController = async (req, res) => {
     try {
         const { name } = req.body;
         if (!name) {
-            return res.Status(401).send({ message: 'Name is requiered' })
+            return res.status(401).send({ message: 'Name is requiered' })
         }
         const existingCategory = await categoryModel.findOne({ name })
         if (existingCategory) {
@@ -17,7 +17,7 @@ export const CreateCategoryController = async (req, res) => {
         }
         const category = await new categoryModel({ name, slug: slugify(name) }).save();
         res.status(201).send({
-            succes: true,
+            success: true,
             message: 'new Category Created Successfully',
             category
         })
@@ -62,7 +62,7 @@ export const CategoryController = async (req, res) => {
     try {
         const category = await categoryModel.find({});
         res.status(200).send({
-            succes: true,
+            success: true,
             message: 'All Categories List',
             category
         })
