@@ -4,11 +4,16 @@ import AdminMenu from '../../components/Layout/AdminMenu';
 import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import CategoryForm from '../../components/Form/CategoryForm';
+import { Modal, Button } from 'antd';
+// import { Modal } from '@mui/material';
 
 const CreateCategory = () => {
     const [categories, setCategories] = useState([]);
-
     const [name, setName] = useState('');
+    const [visible, setVisible] = useState(false);
+    const [updatedName, setUpdatedName] = useState("");
+    const [selected, setSelected] = useState(null);
+
     //handle Form
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -47,6 +52,38 @@ const CreateCategory = () => {
         getAllCategory();
     }, []);
 
+    //update category
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.put(`${process.env.REACT_APP_API}api/v1/category/update-category/${selected._id}`, { name: updatedName });
+            if (data.success) {
+                toast.success(`${updatedName} is updated`);
+                setSelected(null);
+                setUpdatedName("");
+                setVisible(false);
+                getAllCategory();
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong in Updating Categories");
+        }
+    }
+
+    //delete category
+    const handleDelete = async (pId) => {
+        try {
+            const { data } = await axios.delete(`${process.env.REACT_APP_API}api/v1/category/delete-category/${pId}`);
+            if (data.success) {
+                toast.success(`Category is updated`);
+                getAllCategory();
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong in Deleting Categories");
+        }
+    }
+
     return (
         <Layout title={"Dashboard - Create Category"}>
             <div className='container-fluid p-3'>
@@ -78,15 +115,37 @@ const CreateCategory = () => {
                                             <tr>
                                                 <td key={c._id}>{c.name}</td>
                                                 <td>
-                                                    <button className='btn btn-primary'>Edit</button>
+                                                    <button
+                                                        className='btn btn-primary'
+                                                        onClick={() => {
+                                                            setVisible(true);
+                                                            setUpdatedName(c.name)
+                                                            setSelected(c);
+                                                        }}
+                                                    >Edit</button>
+                                                    <button
+                                                        className='btn btn-danger ms-2'
+                                                        onClick={() => { handleDelete(c._id) }}>
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </>
                                     ))}
                                 </tbody>
                             </table>
-
                         </div>
+                        <Modal
+                            onCancel={() => setVisible(false)}
+                            footer={null}
+                            visible={visible}
+                        >
+                            <CategoryForm
+                                value={updatedName}
+                                setValue={setUpdatedName}
+                                handleSubmit={handleUpdate}
+                            />
+                        </Modal>
                     </div>
                 </div>
             </div>
