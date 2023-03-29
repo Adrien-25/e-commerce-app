@@ -14,7 +14,7 @@ const CreateCategory = () => {
     const [updatedName, setUpdatedName] = useState("");
     const [selected, setSelected] = useState(null);
 
-    //handle Form
+    //Create categories
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -36,8 +36,7 @@ const CreateCategory = () => {
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/category/get-category`);
             if (data?.success) {
-                console.log(data.category);
-                setCategories(data.category);
+                setCategories(data?.category);
             }
         } catch (error) {
             console.log(error);
@@ -91,7 +90,7 @@ const CreateCategory = () => {
                     </div>
                     <div className='col-md-9'>
                         <h1>Manage Category</h1>
-                        <div className='p-3 w-50'>
+                        <div className='p-3'>
                             <CategoryForm
                                 handleSubmit={handleSubmit}
                                 value={name}

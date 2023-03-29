@@ -3,7 +3,7 @@ import React from 'react';
 const CategoryForm = ({ handleSubmit, value, setValue }) => {
     return (
         <>
-            <form onSubmit={handleSubmit} className="mb-3 d-flex">
+            <form onSubmit={handleSubmit} className="my-3 d-flex justify-content-center">
                 <div>
                     <input
                         type="text"
@@ -14,7 +14,7 @@ const CategoryForm = ({ handleSubmit, value, setValue }) => {
                     />
                 </div>
 
-                <button type="submit" className="ms-2 btn btn-primary">✔️</button>
+                <button type="submit" className="ms-2 btn btn-dark">✔️</button>
             </form>
 
         </>
