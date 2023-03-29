@@ -21,7 +21,6 @@ const CreateCategory = () => {
             const { data } = await axios.post(`${process.env.REACT_APP_API}api/v1/category/create-category`, { name });
             if (data?.success) {
                 toast.success(`${name} is created`);
-                console.log("created");
                 getAllCategory();
             } else {
                 toast.error(data.message)
@@ -36,8 +35,6 @@ const CreateCategory = () => {
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/category/get-category`);
-            console.log(data);
-
             if (data?.success) {
                 console.log(data.category);
                 setCategories(data.category);
@@ -75,7 +72,7 @@ const CreateCategory = () => {
         try {
             const { data } = await axios.delete(`${process.env.REACT_APP_API}api/v1/category/delete-category/${pId}`);
             if (data.success) {
-                toast.success(`Category is updated`);
+                toast.success(`Category is Deleted`);
                 getAllCategory();
             }
         } catch (error) {
@@ -101,12 +98,12 @@ const CreateCategory = () => {
                                 setValue={setName}
                             />
                         </div>
-                        <div className='w-75'>
-                            <table className="table">
-                                <thead>
+                        <div className='w-100'>
+                            <table className="table table-striped text-light table-dark">
+                                <thead >
                                     <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Actions</th>
+                                        <th className='p-3' scope="col" >Name</th>
+                                        <th scope="col" className='p-3 text-end'>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,19 +111,20 @@ const CreateCategory = () => {
                                         <>
                                             <tr>
                                                 <td key={c._id}>{c.name}</td>
-                                                <td>
+                                                <td className='text-end'>
                                                     <button
                                                         className='btn btn-primary'
                                                         onClick={() => {
                                                             setVisible(true);
                                                             setUpdatedName(c.name)
                                                             setSelected(c);
-                                                        }}
-                                                    >Edit</button>
+                                                        }}>
+                                                        ✏️
+                                                    </button>
                                                     <button
                                                         className='btn btn-danger ms-2'
                                                         onClick={() => { handleDelete(c._id) }}>
-                                                        Delete
+                                                        🗑️
                                                     </button>
                                                 </td>
                                             </tr>
@@ -136,9 +134,11 @@ const CreateCategory = () => {
                             </table>
                         </div>
                         <Modal
+                            centered
                             onCancel={() => setVisible(false)}
                             footer={null}
                             visible={visible}
+                            className="mh-100"
                         >
                             <CategoryForm
                                 value={updatedName}

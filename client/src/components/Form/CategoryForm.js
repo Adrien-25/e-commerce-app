@@ -3,8 +3,8 @@ import React from 'react';
 const CategoryForm = ({ handleSubmit, value, setValue }) => {
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+            <form onSubmit={handleSubmit} className="mb-3 d-flex">
+                <div>
                     <input
                         type="text"
                         className="form-control"
@@ -14,7 +14,7 @@ const CategoryForm = ({ handleSubmit, value, setValue }) => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="ms-2 btn btn-primary">✔️</button>
             </form>
 
         </>
