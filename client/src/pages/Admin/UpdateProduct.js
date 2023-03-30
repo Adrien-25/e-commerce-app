@@ -81,7 +81,6 @@ const UpdateProduct = () => {
             const { data } = axios.put(`${process.env.REACT_APP_API}api/v1/product/update-product/${id}`, productData);
 
             // navigate('/dashboard/admin/products')
-            window.location.href = '/dashboard/admin/products'
 
             if (data?.success) {
                 toast.success("Product Created Successfully");

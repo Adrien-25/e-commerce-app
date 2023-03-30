@@ -51,7 +51,6 @@ const CreateProduct = () => {
 
             const { data } = axios.post(`${process.env.REACT_APP_API}api/v1/product/create-product`, productData);
 
-            window.location.href = '/dashboard/admin/products'
             if (data?.success) {
                 toast.success("Product Created Successfully");
                 //navigate('/dashboard/admin/products')
