@@ -17,7 +17,7 @@ export const CreateCategoryController = async (req, res) => {
         }
         const category = await new categoryModel({ name, slug: slugify(name) }).save();
         res.status(201).send({
-            success: true,
+            succes: true,
             message: 'new Category Created Successfully',
             category
         })

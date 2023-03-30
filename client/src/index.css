@@ -146,3 +146,11 @@ input {
   align-items: center;
   justify-content: center;
 }
+
+/*=====================================
+  DASHBORAD ADMIN PRODUCT 
+*/
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}

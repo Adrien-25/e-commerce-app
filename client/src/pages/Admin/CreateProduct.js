@@ -47,17 +47,10 @@ const CreateProduct = () => {
             productData.append("quantity", quantity);
             productData.append("photo", photo);
             productData.append("category", category);
+            productData.append("shipping", shipping);
 
             const { data } = axios.post(`${process.env.REACT_APP_API}api/v1/product/create-product`, productData);
-            // const { data } = axios.post(`${process.env.REACT_APP_API}api/v1/product/create-product`, {
-            //     name: name,
-            //     description: description,
-            //     price: price,
-            //     quantity: quantity,
-            //     photo: photo,
-            //     category: category
-            // });
-            console.log({ data });
+            console.log(data);
             if (data?.success) {
                 toast.success("Product Created Successfully");
                 //navigate('/dashboard/admin/products')
@@ -79,7 +72,7 @@ const CreateProduct = () => {
                     </div>
                     <div className='col-md-9'>
                         <h1>Create Product</h1>
-                        <div className='m-1 w-75'>
+                        <div className='m-1 w-75 mx-auto'>
                             <Select
                                 bordered={false}
                                 placeholder="Select a category"

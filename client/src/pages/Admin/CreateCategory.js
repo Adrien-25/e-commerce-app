@@ -4,7 +4,7 @@ import AdminMenu from '../../components/Layout/AdminMenu';
 import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import CategoryForm from '../../components/Form/CategoryForm';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 // import { Modal } from '@mui/material';
 
 const CreateCategory = () => {
