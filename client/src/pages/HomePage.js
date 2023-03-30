@@ -10,6 +10,10 @@ const HomePage = () => {
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
     const [radio, setRadio] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+
 
 
     //Get All Categories
@@ -26,6 +30,7 @@ const HomePage = () => {
 
     useEffect(() => {
         getAllCategory();
+        getTotal();
     }, []);
 
     //get Products
@@ -37,6 +42,19 @@ const HomePage = () => {
             console.log(error);
         }
     }
+
+    //get Total COunt
+    const getTotal = async () => {
+        try {
+            const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/product-count`);
+            setTotal(data?.total)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+
 
     //filter by cat
     const handleFilter = (value, id) => {
@@ -86,27 +104,32 @@ const HomePage = () => {
                         ))}
                     </div>
                     <h6 className='text-center mt-4 mb-2' >Filter By Price</h6>
-                    <div className='d-flex flex-column'>
+                    <div className='d-flex flex-column mb-4'>
                         <Radio.Group onChange={e => setRadio(e.target.value)}>
                             {Prices?.map(p => (
                                 <div key={p._id}>
-
                                     <Radio value={p.array}>{p.name}</Radio>
                                 </div>
                             ))}
                         </Radio.Group>
                     </div>
+                    <div className='d-flex flex-column mb-4'>
+                        <button
+                            className='btn btn-danger'
+                            onClick={() => window.location.reload()}
+                        >🔄</button>
+                    </div>
                 </div>
                 <div className='col-md-9'>
-                    {JSON.stringify(checked, null, 4)}
                     <h1 className='text-center'>All Products</h1>
                     <div className='d-flex flex-nowrap'>
                         {products?.map(p => (
                             <div className="card m-2 col-md-3" key={p._id}>
                                 <img className="card-img-top" src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${p._id}`} alt={p.name} />
                                 <div className="card-body">
-                                    <h3 className="text-danger fs-5">{p.price} $</h3>
+
                                     <h5 className="card-title">{p.name}</h5>
+                                    <p className="text-danger fs-5">$ {p.price}</p>
                                     <p className="card-text">{p.description}</p>
                                     <div className='text-center'>
                                         <button className='btn btn-primary ms-1'>👁️</button>
@@ -115,6 +138,19 @@ const HomePage = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                    <div className='m-2 p-3'>
+                        {products && products.length > total && (
+                            <button
+                                className='btn btn-warning'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPage(page + 1);
+                                }}
+                            >
+                                {loading ? "Loading ..." : "Loadmore"}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
