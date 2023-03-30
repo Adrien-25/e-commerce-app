@@ -130,7 +130,7 @@ export const SingleProductController = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "Get Single Product Successfully",
-            product,
+            product
         })
     } catch (error) {
         console.log(error);
