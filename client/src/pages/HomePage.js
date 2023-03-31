@@ -33,10 +33,21 @@ const HomePage = () => {
         getTotal();
     }, []);
 
+    // //get Products
+    // const getAllProducts = async () => {
+    //     try {
+    //         const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/get-product`);
+    //         setProducts(data.products)
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
     //get Products
     const getAllProducts = async () => {
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/get-product`);
+            setLoading(true)
+            const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/product-list/{page}`);
+            setLoading(false)
             setProducts(data.products)
         } catch (error) {
             console.log(error);
@@ -50,7 +61,23 @@ const HomePage = () => {
             setTotal(data?.total)
         } catch (error) {
             console.log(error);
+        }
+    }
+    useEffect(() => {
+        if (page === 1) return;
+        loadMore();
+    }, [page]);
 
+    //load more
+    const loadMore = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/product-list/${page}`);
+            setLoading(false);
+            setProducts([...products, ...data.products]);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
         }
     }
 
@@ -91,7 +118,7 @@ const HomePage = () => {
     return (
         <Layout title={"All Products - Best offers"}>
             <div className='row p-3'>
-                <div className='col-md-2 bg-white rounded-2'>
+                <div className='col-md-3 bg-white rounded-2'>
                     <h6 className='text-center mt-4 mb-2' >Filter By Category</h6>
                     <div className='d-flex flex-column'>
                         {categories?.map((c, index) => (
@@ -124,25 +151,34 @@ const HomePage = () => {
                 </div>
                 <div className='col-md-9'>
                     <h1 className='text-center'>All Products</h1>
-                    <div className='d-flex flex-nowrap'>
-                        {products?.map((p, index) => (
-                            <div className="card m-2 col-md-3" key={index}>
-                                <img className="card-img-top" src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${p._id}`} alt={p.name} />
-                                <div className="card-body">
 
-                                    <h5 className="card-title">{p.name}</h5>
-                                    <p className="text-danger fs-5">$ {p.price}</p>
-                                    <p className="card-text">{p.description}</p>
-                                    <div className='text-center'>
-                                        <button className='btn btn-primary ms-1'>👁️</button>
-                                        <button className='btn btn-secondary ms-1'>🛒</button>
+                    <div className='row'>
+                        {products?.map((p, index) => (
+                            <div className="col-md-6 col-lg-4 mb-4 mb-md-0 py-2">
+                                <div className="card" key={index}>
+                                    <div className="d-flex justify-content-between p-3">
+                                        <div>
+                                            <img className="card-img-top" src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${p._id}`} alt={p.name} />
+                                            <div className="card-body">
+                                                <div className="d-flex justify-content-between">
+                                                    <p className="small"><a href="#!" className="text-muted">{p.name}</a></p>
+                                                    <p className="small text-danger">$ {p.price}</p>
+                                                </div>
+                                                <div className='text-center'>
+                                                    <button className='btn btn-primary ms-1'>👁️</button>
+                                                    <button className='btn btn-secondary ms-1'>🛒</button>
+                                                </div>
+                                                <p className="text-muted mb-0 mt-2">Available: <span className="fw-bold">7</span></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         ))}
                     </div>
                     <div className='m-2 p-3'>
-                        {products && products.length > total && (
+                        {products && products.length < total && (
                             <button
                                 className='btn btn-warning'
                                 onClick={(e) => {
@@ -156,8 +192,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-
-
         </Layout >
     )
 }
