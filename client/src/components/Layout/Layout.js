@@ -17,7 +17,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
             </Helmet>
             <Header />
 
-            <main style={{ minHeight: 'calc(100vh - 191px)' }}>
+            <main className='dp-flex flex-direction-column' style={{ minHeight: 'calc(100vh - 191px)' }}>
                 <Toaster />
                 {children}
             </main>

@@ -43,7 +43,7 @@ const HomePage = () => {
         }
     }
 
-    //get Total COunt
+    //get Total Count
     const getTotal = async () => {
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/product-count`);
@@ -53,8 +53,6 @@ const HomePage = () => {
 
         }
     }
-
-
 
     //filter by cat
     const handleFilter = (value, id) => {
@@ -84,7 +82,6 @@ const HomePage = () => {
                 checked,
                 radio
             });
-
             setProducts(data?.products)
         } catch (error) {
             console.log(error);
@@ -97,8 +94,13 @@ const HomePage = () => {
                 <div className='col-md-2 bg-white rounded-2'>
                     <h6 className='text-center mt-4 mb-2' >Filter By Category</h6>
                     <div className='d-flex flex-column'>
-                        {categories?.map(c => (
-                            <Checkbox className="m-0 py-1" key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
+                        {categories?.map((c, index) => (
+                            <Checkbox
+                                className="m-0 py-1"
+                                // key={c._id} 
+                                key={index}
+
+                                onChange={(e) => handleFilter(e.target.checked, c._id)}>
                                 {c.name}
                             </Checkbox>
                         ))}
@@ -106,8 +108,8 @@ const HomePage = () => {
                     <h6 className='text-center mt-4 mb-2' >Filter By Price</h6>
                     <div className='d-flex flex-column mb-4'>
                         <Radio.Group onChange={e => setRadio(e.target.value)}>
-                            {Prices?.map(p => (
-                                <div key={p._id}>
+                            {Prices?.map((p, index) => (
+                                <div key={index}>
                                     <Radio value={p.array}>{p.name}</Radio>
                                 </div>
                             ))}
@@ -123,8 +125,8 @@ const HomePage = () => {
                 <div className='col-md-9'>
                     <h1 className='text-center'>All Products</h1>
                     <div className='d-flex flex-nowrap'>
-                        {products?.map(p => (
-                            <div className="card m-2 col-md-3" key={p._id}>
+                        {products?.map((p, index) => (
+                            <div className="card m-2 col-md-3" key={index}>
                                 <img className="card-img-top" src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${p._id}`} alt={p.name} />
                                 <div className="card-body">
 
