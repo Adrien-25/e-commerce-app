@@ -7,6 +7,7 @@ const ProductDetails = () => {
 
     const params = useParams();
     const [product, setProduct] = useState([]);
+    const [relatedProducts, setRelatedProducts] = useState([]);
 
     //initial details
     useEffect(() => {
@@ -18,6 +19,18 @@ const ProductDetails = () => {
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/single-product/${params.slug}`);
             setProduct(data?.product)
+            getSimilarProduct(data?.product._id, data?.product.category._id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //get related products
+    const getSimilarProduct = async (pid, cid) => {
+        try {
+            const { data } = await axios.get(`${process.env.REACT_APP_API}api/v1/product/related-product/${pid}/${cid}`);
+            console.log(data);
+            setRelatedProducts(data?.products)
         } catch (error) {
             console.log(error);
         }
@@ -26,7 +39,6 @@ const ProductDetails = () => {
     return (
         <Layout>
             <h1>Products Details</h1>
-            {JSON.stringify(product, null, 4)}
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
@@ -75,38 +87,44 @@ const ProductDetails = () => {
                                     <dd className="col-9">Reebook</dd>
                                 </div>
                                 <hr />
-                                <div className="row mb-4">
-                                    <div className="col-md-4 col-6">
-                                        <label className="mb-2">Size</label>
-                                        <select className="form-select border border-secondary" style={{ height: 35 }}>
-                                            <option>Small</option>
-                                            <option>Medium</option>
-                                            <option>Large</option>
-                                        </select>
-                                    </div>
-                                    {/* col.// */}
-                                    <div className="col-md-4 col-6 mb-3">
-                                        <label className="mb-2 d-block">Quantity</label>
-                                        <div className="input-group mb-3" style={{ width: 170 }}>
-                                            <button className="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                                <i className="fas fa-minus" />
-                                            </button>
-                                            <input type="text" className="form-control text-center border border-secondary" placeholder={14} aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                            <button className="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                                <i className="fas fa-plus" />
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div className='d-flex gap-4 justify-content-center'>
+
+                                    <a href="/" className="btn btn-warning shadow-0"> Buy now </a>
+                                    <a href="/" className="btn btn-primary shadow-0"> <i className="me-1 fa fa-shopping-basket" /> Add to cart </a>
                                 </div>
-                                <a href="#" className="btn btn-warning shadow-0"> Buy now </a>
-                                <a href="#" className="btn btn-primary shadow-0"> <i className="me-1 fa fa-shopping-basket" /> Add to cart </a>
-                                <a href="#" className="btn btn-light border border-secondary py-2 icon-hover px-3"> <i className="me-1 fa fa-heart fa-lg" /> Save </a>
                             </div>
                         </main>
                     </div>
                 </div>
             </section>
-        </Layout>
+            <div className='row'>
+                <h1>Similar produts</h1>
+                {relatedProducts.length < 1 && <p>Nos similmar products found</p>}
+                <div className='row p-3'>
+                    {relatedProducts?.map((p) => (
+                        <div className="col-sm-3">
+                            <div className="bg-white text-center rounded-3 py-3">
+                                <span className="wish-icon"><i className="fa fa-heart-o" /></span>
+                                <div className="img-box p-3">
+                                    <img
+                                        src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${product._id}`}
+                                        className="img-fluid"
+                                        alt={p.name} />
+                                </div>
+                                <div className="thumb-content">
+                                    <h4>{p.name}</h4>
+                                    <p className="item-price"><b>$ {p.price}</b></p>
+                                    <div className='d-flex gap-3 justify-content-center'>
+                                        <a href="/" className="btn btn-primary">👁️</a>
+                                        <a href="/" className="btn btn-secondary">🛒</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </Layout >
     )
 }
 
