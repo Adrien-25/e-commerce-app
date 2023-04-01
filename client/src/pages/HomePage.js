@@ -151,7 +151,6 @@ const HomePage = () => {
                 </div>
                 <div className='col-md-9'>
                     <h1 className='text-center'>All Products</h1>
-
                     <div className='row'>
                         {products?.map((p, index) => (
                             <div className="col-md-6 col-lg-4 mb-4 mb-md-0 py-2">
@@ -174,7 +173,6 @@ const HomePage = () => {
                                     </div>
                                 </div>
                             </div>
-
                         ))}
                     </div>
                     <div className='m-2 p-3'>
