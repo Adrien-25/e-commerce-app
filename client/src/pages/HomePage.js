@@ -1,9 +1,9 @@
 import { Checkbox, Radio } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import { Prices } from '../components/Prices';
-
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -13,7 +13,7 @@ const HomePage = () => {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
 
 
     //Get All Categories
@@ -160,11 +160,11 @@ const HomePage = () => {
                                             <img className="card-img-top" src={`${process.env.REACT_APP_API}api/v1/product/product-photo/${p._id}`} alt={p.name} />
                                             <div className="card-body">
                                                 <div className="d-flex justify-content-between">
-                                                    <p className="small"><a href="#!" className="text-muted">{p.name}</a></p>
+                                                    <p className="small"><a href="#!" className="text-muted text-decoration-none">{p.name}</a></p>
                                                     <p className="small text-danger">$ {p.price}</p>
                                                 </div>
                                                 <div className='text-center'>
-                                                    <button className='btn btn-primary ms-1'>👁️</button>
+                                                    <button className='btn btn-primary ms-1' onClick={() => navigate(`/product/${p.slug}`)}>👁️</button>
                                                     <button className='btn btn-secondary ms-1'>🛒</button>
                                                 </div>
                                                 <p className="text-muted mb-0 mt-2">Available: <span className="fw-bold">7</span></p>
