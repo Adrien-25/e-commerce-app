@@ -2,10 +2,13 @@ import React from 'react'
 import { toast } from 'react-hot-toast';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import useCategory from '../../hooks/useCategory';
 import SearchInput from '../Form/SearchInput';
+
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
+    const categories = useCategory();
     const handleLogout = () => {
         setAuth({
             ...auth,
@@ -32,8 +35,31 @@ const Header = () => {
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link" href="#">Home</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink to="/category" className="nav-link">Category</NavLink>
+                            <li className="nav-item dropdown">
+                                <Link
+                                    className="nav-link dropdown-toggle"
+                                    to={"/categories"}
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    Categories
+                                </Link>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link className="dropdown-item" to={"/categories"}>
+                                            All Categories
+                                        </Link>
+                                    </li>
+                                    {categories?.map((c) => (
+                                        <li>
+                                            <Link className="dropdown-item" to={`/categories/${c.slug}`}>
+                                                {c.name}
+                                            </Link>
+                                        </li>
+
+                                    ))}
+                                </ul>
                             </li>
                             {!auth?.user ? (<>
                                 <li className="nav-item">
@@ -63,7 +89,6 @@ const Header = () => {
                                             <NavLink
                                                 className="dropdown-item"
                                                 to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
-
                                             >
                                                 Dashboard
                                             </NavLink>
