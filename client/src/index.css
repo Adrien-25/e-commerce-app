@@ -154,3 +154,7 @@ input {
   text-decoration: none !important;
   color: black !important;
 }
+
+.ant-badge-count {
+  margin-top: 3px;
+}

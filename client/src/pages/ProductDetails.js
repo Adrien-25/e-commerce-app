@@ -1,13 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
+import { useCart } from "../context/cart";
+
 
 const ProductDetails = () => {
 
     const params = useParams();
     const [product, setProduct] = useState([]);
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [cart, setCart] = useCart();
+
 
     //initial details
     useEffect(() => {
@@ -89,7 +94,13 @@ const ProductDetails = () => {
                                 <div className='d-flex gap-4 justify-content-center'>
 
                                     <a href="/" className="btn btn-warning shadow-0"> Buy now </a>
-                                    <a href="/" className="btn btn-primary shadow-0"> <i className="me-1 fa fa-shopping-basket" /> Add to cart </a>
+                                    <button
+                                        className='btn btn-secondary ms-1'
+                                        onClick={() => {
+                                            setCart([...cart, product])
+                                            toast.success('Item Addeed to cart')
+                                        }}
+                                    >🛒</button>
                                 </div>
                             </div>
                         </main>
@@ -98,7 +109,7 @@ const ProductDetails = () => {
             </section>
             <div className='row'>
                 <h1>Similar produts</h1>
-                {relatedProducts.length < 1 && <p>Nos similmar products found</p>}
+                {relatedProducts.length < 1 && <p>Nos similar products found</p>}
                 <div className='row p-3'>
                     {relatedProducts?.map((p) => (
                         <div className="col-sm-3">

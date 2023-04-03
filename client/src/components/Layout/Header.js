@@ -2,12 +2,14 @@ import React from 'react'
 import { toast } from 'react-hot-toast';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import { useCart } from '../../context/cart';
 import useCategory from '../../hooks/useCategory';
 import SearchInput from '../Form/SearchInput';
-
+import { Badge } from 'antd';
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
+    const [cart] = useCart();
     const categories = useCategory();
     const handleLogout = () => {
         setAuth({
@@ -27,13 +29,13 @@ const Header = () => {
                         <span className="navbar-toggler-icon" />
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <Link to="/" className="navbar-brand" href="#" >
+                        <Link to="/" className="navbar-brand"  >
                             👜 Ecommerce app
                         </Link>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <SearchInput />
                             <li className="nav-item">
-                                <NavLink to="/" className="nav-link" href="#">Home</NavLink>
+                                <NavLink to="/" className="nav-link">Home</NavLink>
                             </li>
                             <li className="nav-item dropdown">
                                 <Link
@@ -77,7 +79,7 @@ const Header = () => {
                                 <li className="nav-item dropdown">
                                     <NavLink
                                         className="nav-link dropdown-toggle"
-                                        href="#" id="navbarDropdownMenuLink"
+                                        id="navbarDropdownMenuLink"
                                         role="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
@@ -110,10 +112,12 @@ const Header = () => {
                             </>
                             )
                             }
-                            <li className="nav-item">
-                                <NavLink to="/cart" className="nav-link" href="#">
-                                    Cart(0)
-                                </NavLink>
+                            <li className="nav-item d-flex">
+                                <Badge count={cart?.length} showZero>
+                                    <NavLink to="/cart" className="nav-link border-0 fs-5">
+                                        🛒
+                                    </NavLink>
+                                </Badge>
                             </li>
                         </ul>
 
