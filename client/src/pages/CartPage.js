@@ -10,6 +10,23 @@ const CartPage = () => {
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
 
+    // Total price
+    const totalPrice = () => {
+        try {
+            let total = 0;
+            cart?.map((item) => {
+                total = total + item.price
+            });
+            return total.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Delete item
     const removeCartItem = (pid) => {
         try {
             let myCart = [...cart];
@@ -38,7 +55,7 @@ const CartPage = () => {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-9'>
+                    <div className='col-md-9  mb-4'>
                         {cart?.map((p) => (
                             <div className='row mb-2 card flex-row p-2'>
                                 <div className='col-md-4'>
@@ -48,9 +65,9 @@ const CartPage = () => {
                                         alt={p.name} />
                                 </div>
                                 <div className='col-md-8'>
-                                    <p>{p.name}</p>
-                                    <p>{p.description}</p>
-                                    <p>{p.price}</p>
+                                    <p className='fw-bold fs-4 mb-2'>{p.name}</p>
+                                    <p className='mb-2'>{p.description}</p>
+                                    <p className='mb-2'>Price : $ {p.price}</p>
                                     <button
                                         className='btn btn-danger'
                                         onClick={() => removeCartItem(p._id)}
@@ -60,7 +77,10 @@ const CartPage = () => {
                         ))}
                     </div>
                     <div className='col-md-3'>
-                        Checkout | Payment
+                        <h2>Cart Summary</h2>
+                        <p>Total | Checkout | Payment</p>
+                        <hr />
+                        <h4>Total : {totalPrice()}</h4>
                     </div>
                 </div>
             </div>
