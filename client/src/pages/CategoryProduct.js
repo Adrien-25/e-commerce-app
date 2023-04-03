@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Layout from '../components/Layout/Layout'
+import Layout from '../components/Layout/Layout';
+import { toast } from 'react-hot-toast';
+import { useCart } from "../context/cart";
 
 
 const CategoryProduct = () => {
@@ -9,6 +11,8 @@ const CategoryProduct = () => {
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
     const navigate = useNavigate();
+    const [cart, setCart] = useCart();
+
 
     useEffect(() => {
         if (params?.slug) getProductByCat();
@@ -45,7 +49,13 @@ const CategoryProduct = () => {
                                             </div>
                                             <div className='text-center'>
                                                 <button className='btn btn-primary ms-1' onClick={() => navigate(`/product/${p.slug}`)}>👁️</button>
-                                                <button className='btn btn-secondary ms-1'>🛒</button>
+                                                <button
+                                                    className='btn btn-secondary ms-1'
+                                                    onClick={() => {
+                                                        setCart([...cart, p])
+                                                        toast.success('Item Addeed to cart')
+                                                    }}
+                                                >🛒</button>
                                             </div>
                                             <p className="text-muted mb-0 mt-2">Available: <span className="fw-bold">7</span></p>
                                         </div>
