@@ -38,6 +38,8 @@ const CartPage = () => {
         }
     }
 
+    console.log(auth);
+
     return (
         <Layout>
             <div className='container'>
@@ -77,10 +79,42 @@ const CartPage = () => {
                         ))}
                     </div>
                     <div className='col-md-3'>
-                        <h2>Cart Summary</h2>
+                        <h2 className='text-capitalize'>Cart Summary</h2>
                         <p>Total | Checkout | Payment</p>
                         <hr />
                         <h4>Total : {totalPrice()}</h4>
+                        {auth?.user?.address ? (
+                            <>
+                                <div className='mb-3'>
+                                    <h4 className='text-capitalize'>Current Address :</h4>
+                                    <h5 className='text-capitalize'>{auth?.user?.address}</h5>
+                                    <button
+                                        className='mx-auto  btn btn-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >Update Address
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <div className='mb-3'>
+                                {auth?.token ? (
+                                    <button
+                                        className='text-center btn btn-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >
+                                        Update Address
+                                    </button>
+                                ) : (
+                                    <button
+                                        className=' text-center btn btn-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >
+                                        Please Login to Checkout
+                                    </button>
+                                )
+                                }
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
