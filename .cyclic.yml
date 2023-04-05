@@ -1,0 +1,4 @@
+build:
+  steps:
+    - run: npm ci
+    - run: npm run build
